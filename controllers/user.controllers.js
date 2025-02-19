@@ -116,7 +116,7 @@ const loginUser = async (req, res, next) => {
 	}
 	user.password = undefined;
 	return res.status(200).json({
-		message: "user created successfully",
+		message: "user login successfully",
 		user,
 		token: createdToken,
 	});
