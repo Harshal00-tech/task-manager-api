@@ -5,13 +5,13 @@ const option = {
 		openapi: "3.1.0",
 		info: {
 			title: "Task Management API",
-			version: "1.0.0",
+			version: "1.1.0",
 			description:
 				"This is the task management api documentation, contain rest api for various task operations.",
 		},
 		servers: [
 			{
-				url: "http://localhost:3000",
+				url: "https://task-manager-api-80kd.onrender.com",
 			},
 		],
 		components: {
