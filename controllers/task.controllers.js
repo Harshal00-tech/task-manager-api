@@ -37,7 +37,6 @@ const createTask = async (req, res, next) => {
 
 	const uploadedAttachment = await uploadOnCloudinary(localAttachment.path);
 
-	//date must be in format of 'YYYY-MM-DD'
 	const userId = req.user._id;
 	const newTask = await Task.create({
 		title,
