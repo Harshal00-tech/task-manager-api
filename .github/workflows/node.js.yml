@@ -24,14 +24,15 @@ jobs:
             - run: npm ci
             - run: npm run build --if-present
 
-            # Add the deployment step here
-            - name: Deploy to Render
-              run: |
-                  curl -X POST \
-                       -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-                       -H "Content-Type: application/json" \
-                       -d '{"service_id": "${{ secrets.SERVICE_ID }}"}' \
-                       https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deployments
-              env:
-                  RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-                  SERVICE_ID: ${{ secrets.SERVICE_ID }}
+    # Heavily modified deploy job to fit render.com
+    deploy:
+        name: Deploy
+        needs: [build] # Our tests must pass in order to run the deploy job
+        runs-on: macos-latest
+
+        steps:
+            - name: Deploy to production
+              uses: Harshal00-tech/render-deploy-action@v0.0.8
+              with:
+                  service-id: ${{ secrets.SERVICE_ID }} # Can be found as part of the Deploy Hook
+                  api-key: ${{ secrets.RENDER_API_KEY }} # Create your API key in Render Dashboard > Account Settings
